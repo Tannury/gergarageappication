@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${isEdit} ? 'Edit Vehicle' : 'Create Vehicle'"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            appearance: auto;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #28a745; /* Create color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .go-back-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 th:text="${isEdit} ? 'Edit Vehicle' : 'Create Vehicle'"></h1>
+    </header>
+
+    <section class="form-container">
+        <h2 th:text="${isEdit} ? 'Edit Vehicle' : 'Create Vehicle'"></h2>
+        <form th:action="${isEdit} ? @{'/vehicles/edit/' + ${vehicle.id}} : @{'/vehicles/create'}" th:object="${vehicle}" method="post">
+            <!-- Make -->
+            <label for="make">Make:</label>
+            <select id="make" th:field="*{make}" required>
+                <option value="">Select Make</option>
+                <option th:each="make : ${T(com.gersgarage.model.VehicleMake).values()}"
+                        th:value="${make}" th:text="${make}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('make')}" th:errors="*{make}" style="color: red;"></span>
+
+            <!-- Type -->
+            <label for="type">Type:</label>
+            <select id="type" th:field="*{type}" required>
+                <option value="">Select Type</option>
+                <option th:each="type : ${T(com.gersgarage.model.VehicleType).values()}"
+                        th:value="${type}" th:text="${type}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" style="color: red;"></span>
+
+            <!-- License Details -->
+            <label for="licenseDetails">License Details:</label>
+            <input type="text" id="licenseDetails" th:field="*{licenseDetails}" placeholder="License Details" required />
+            <span th:if="${licenseError}" th:text="${licenseError}" style="color: red;"></span>
+            <span th:if="${#fields.hasErrors('licenseDetails')}" th:errors="*{licenseDetails}" style="color: red;"></span>
+
+            <!-- Engine Type -->
+            <label for="engineType">Engine Type:</label>
+            <select id="engineType" th:field="*{engineType}" required>
+                <option value="">Select Engine Type</option>
+                <option th:each="engine : ${T(com.gersgarage.model.EngineType).values()}"
+                        th:value="${engine}" th:text="${engine}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}" style="color: red;"></span>
+
+            <!-- Submit Button -->
+            <input type="submit" th:value="${isEdit} ? 'Update Vehicle' : 'Create Vehicle'" style="display: block; margin-top: 20px; padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;" />
+        </form>
+    </section>
+
+    <!-- Go Back Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="window.history.back();" class="go-back-button">Go Back</button>
+    </div>
+</body>
+</html>

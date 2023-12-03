@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mechanic Management</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    header {
+        text-align: center;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+    }
+    .form-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 400px;
+        margin: 20px auto;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    footer {
+        text-align: center;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+    <header style="text-align: center; background-color: #007bff; color: #fff; padding: 10px;">
+        <h1>Mechanic Management - Ger's Garage</h1>
+        <nav>
+            <a href="/adminDashboard" style="color: #fff; margin-right: 20px;">Home</a>
+            <!-- Add other navigation links if needed -->
+        </nav>
+    </header>
+
+    <section>
+        <h2>Current Mechanics</h2>
+        <table th:if="${!mechanics.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mechanic : ${mechanics}">
+                    <td th:text="${mechanic.id}"></td>
+                    <td th:text="${mechanic.name}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p th:if="${mechanics.isEmpty()}">No mechanics found.</p>
+
+        <h2>Add New Mechanic</h2>
+		<form th:action="@{/mechanics/add}" method="post">
+		    <label for="mechanicName">Mechanic Name:</label>
+		    <input type="text" id="mechanicName" name="name" required />
+		    <input type="submit" value="Add Mechanic" />
+		</form>
+		
+		<h2>Allocate Mechanic to Booking</h2>
+		<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+		<form th:action="@{/bookings/allocate-mechanic}" method="post">
+		    <label for="bookingId">Booking ID:</label>
+		    <input type="number" id="bookingId" name="bookingId" required />
+		    
+		    <label for="mechanicId">Mechanic ID:</label>
+		    <input type="number" id="mechanicId" name="mechanicId" required />
+		
+		    <input type="submit" value="Allocate Mechanic" />
+		</form>
+    </section>
+
+    <footer style="text-align: center; background-color: #333; color: #fff; padding: 10px;">
+        <p>&copy; 2023 Ger's Garage</p>
+    </footer>
+</body>
+</html>

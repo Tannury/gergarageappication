@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <header style="text-align: center; background-color: #007bff; color: #fff; padding: 10px;">
+        <h1>Ger's Garage - Registration</h1>
+    </header>
+
+    <section class="form-container" style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); padding: 20px; width: 400px; margin: 0 auto;">
+        <h2 style="font-size: 24px; margin-bottom: 20px; color: #333;">Registration</h2>
+        <form th:action="@{/register}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"/>
+
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"/>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"/>
+            <span th:if="${usernameError}" th:text="${usernameError}" style="color: red;"></span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"/>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"/>
+            <span th:if="${phoneError}" th:text="${phoneError}" style="color: red;"></span>
+
+            <label for="vehicleMake">Vehicle Make:</label>
+			<select id="vehicleMake" name="vehicleMake">
+			    <option value="">Select Make</option>
+			    <option th:each="make : ${T(com.gersgarage.model.VehicleMake).values()}"
+			            th:value="${make}" th:text="${make}"></option>
+			</select>
+
+            <label for="vehicleType">Vehicle Type:</label>
+            <select id="vehicleType" name="vehicleType" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <option th:each="vehicleType : ${T(com.gersgarage.model.VehicleType).values()}"
+                        th:value="${vehicleType}"
+                        th:text="${vehicleType}">Type</option>
+            </select>
+        
+            <label for="licenseDetails">License Details:</label>
+            <input type="text" id="licenseDetails" name="licenseDetails" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+            
+            <label for="engineType">Engine Type:</label>
+            <select id="engineType" name="engineType" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <option th:each="engineType : ${T(com.gersgarage.model.EngineType).values()}"
+                        th:value="${engineType}"
+                        th:text="${engineType}">Engine</option>
+            </select>
+
+            <input type="submit" value="Register" style="width: 100%; background-color: #007bff; color: #fff; padding: 10px; border: none; border-radius: 4px; cursor: pointer;" />
+        </form>
+    </section>
+
+    <section style="text-align: center; margin-top: 10px;">
+        <a th:href="@{/login}" style="text-decoration: none; color: #007bff;">Login</a>
+    </section>
+
+    <footer style="text-align: center; background-color: #333; color: #fff; padding: 10px;">
+        <p>&copy; 2023 Ger's Garage</p>
+    </footer>
+</body>
+</html>

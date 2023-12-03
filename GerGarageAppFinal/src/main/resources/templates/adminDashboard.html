@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <header style="text-align: center; background-color: #007bff; color: #fff; padding: 10px;">
+	    <h1>Welcome to Ger's Garage - Admin Dashboard</h1>
+	    <nav>
+            <a href="/adminDashboard" style="color: #fff; margin-right: 20px;">Home</a>
+            <a href="/bookings" style="color: #fff; margin-right: 20px;">Bookings</a>
+            <a href="/vehicles/list" style="color: #fff; margin-right: 20px;">Vehicles</a>
+            <a href="/mechanics/manage" style="color: #fff; margin-right: 20px;">Mechanics</a> <!-- Added link for mechanics -->
+            <a href="/logout" style="color: #fff;">Logout</a>
+        </nav>
+	</header>
+
+    <section class="dashboard-container" style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); padding: 20px; width: 650px; margin: 20px auto;">
+	    <h2 style="font-size: 28px; margin-bottom: 20px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px;">Manage Bookings:</h2>
+	    <a th:href="@{/bookings/create}" style="background-color: #28a745; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none;">Create Booking</a>
+	    <a th:href="@{/bookings}" style="background-color: #007bff; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">View Bookings</a>
+	    <a th:href="@{/bookings/edit}" style="background-color: #ffc107; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">Edit Booking</a>
+	    <a th:href="@{/bookings/delete}" style="background-color: #dc3545; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">Delete Booking</a>
+	
+	    <h2 style="font-size: 28px; margin-bottom: 20px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px;">Manage Vehicles:</h2>
+	    <a th:href="@{/vehicles/create}" style="background-color: #28a745; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none;">Add Vehicle</a>
+	    <a th:href="@{/vehicles/list}" style="background-color: #007bff; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">View Vehicles</a>
+	    <a th:href="@{/vehicles/edit}" style="background-color: #ffc107; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">Edit Vehicle</a>
+	    <a th:href="@{/vehicles/delete}" style="background-color: #dc3545; padding: 8px 12px; border-radius: 4px; color: #fff; text-decoration: none; margin-left: 10px;">Delete Vehicle</a>
+
+
+    <footer style="text-align: center; background-color: #333; color: #fff; padding: 10px;">
+        <p>&copy; 2023 Ger's Garage</p>
+    </footer>
+</body>
+</html>

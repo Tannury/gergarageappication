@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Costs to Booking</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    header {
+        text-align: center;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+    }
+    .form-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 400px;
+        margin: 20px auto;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    footer {
+        text-align: center;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+    <header style="text-align: center; background-color: #007bff; color: #fff; padding: 10px;">
+        <h1>Add Costs to Booking - Ger's Garage</h1>
+    </header>
+
+     <section>
+        <h2>Add Costs to Booking</h2>
+        <form th:action="@{/admin/bookings/costs/add}" method="post">
+            <label for="bookingId">Booking:</label>
+            <select id="bookingId" name="bookingId" required>
+                <option th:each="booking : ${bookings}"
+                        th:value="${booking.id}"
+                        th:text="${booking.id + ' - ' + booking.user.username + ' - ' + booking.vehicle.model}"></option>
+            </select>
+
+            <label for="partId">Part:</label>
+            <select id="partId" name="partId" required>
+                <option th:each="part : ${parts}"
+                        th:value="${part.id}"
+                        th:text="${part.name + ' - €' + part.price}"></option>
+            </select>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+
+            <input type="submit" value="Add Cost" />
+        </form>
+    </section>
+
+    <footer style="text-align: center; background-color: #333; color: #fff; padding: 10px;">
+        <p>&copy; 2023 Ger's Garage</p>
+    </footer>
+</body>
+</html>

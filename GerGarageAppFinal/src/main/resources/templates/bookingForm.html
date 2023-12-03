@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        select,
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            appearance: auto;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        /* Go Back Button styling */
+        .go-back-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ger's Garage - Create Booking</h1>
+    </header>
+    <section class="form-container">
+        <h2>Create Booking</h2>
+        <form th:action="@{/bookings/create}" th:object="${booking}" method="post">
+            <label for="vehicle">Vehicle:</label>
+            <select th:field="*{vehicle}" required>
+			    <option value="">Select your vehicle</option>
+			    <option th:each="vehicle : ${userVehicles}"
+			            th:value="${vehicle.id}" th:text="${vehicle.make} + ' ' + ${vehicle.licenseDetails}"></option>
+			</select>
+
+            <span th:if="${userVehicles.isEmpty()}" style="color: red;">Please register a vehicle before making a booking.</span>
+
+            <label for="bookingDate">Booking Date:</label>
+            <input type="date" th:field="*{bookingDate}" required />
+
+            <label for="bookingType">Booking Type:</label>
+            <select th:field="*{bookingType}" required>
+                <option th:each="type : ${T(com.gersgarage.model.BookingType).values()}"
+                        th:value="${type}" th:text="${type}"></option>
+            </select>
+
+            <label for="customerComments">Customer Comments:</label>
+            <input type="text" th:field="*{customerComments}" placeholder="Customer Comments" />
+
+            <span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span>
+            <input type="submit" value="Create Booking" />
+        </form>
+    </section>
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="window.history.back();" class="go-back-button">Go Back</button>
+    </div>
+</body>
+</html>

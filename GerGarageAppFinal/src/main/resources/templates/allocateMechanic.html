@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Allocate Mechanic</title>
+</head>
+<body>
+    <section>
+        <h2>Allocate Mechanic to Booking</h2>
+        <form th:action="@{/admin/bookings/allocate-mechanic}" method="post">
+            <!-- Assuming a booking object is provided -->
+            <input type="hidden" name="bookingId" th:value="${booking.id}" />
+
+            <label for="mechanicId">Mechanic:</label>
+            <select id="mechanicId" name="mechanicId" required>
+                <option th:each="mechanic : ${mechanics}"
+                        th:value="${mechanic.id}"
+                        th:text="${mechanic.name}"></option>
+            </select>
+
+            <input type="submit" value="Allocate Mechanic" />
+        </form>
+    </section>
+
+</body>
+</html>
